@@ -1,0 +1,20 @@
+$color:greenyellow;
+$bgcolor:red;
+$font: helvetica;
+$fsmall:12px;
+$flarge:30px;
+
+h1 {
+    color: $color;
+    background-color: $bgcolor;
+    font-family: $font;
+    font-size: $flarge;
+}
+
+p {
+    color: $bgcolor;
+    background-color: $color;
+    border: 2px solid $color;
+    font-size: $fsmall;
+    font-family: $font;
+}

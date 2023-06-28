@@ -1,0 +1,14 @@
+h1 {
+  color: greenyellow;
+  background-color: red;
+  font-family: helvetica;
+  font-size: 30px;
+}
+
+p {
+  color: red;
+  background-color: greenyellow;
+  border: 2px solid greenyellow;
+  font-size: 12px;
+  font-family: helvetica;
+}
