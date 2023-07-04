@@ -25,6 +25,11 @@ Route::view('Index', 'home');
 Route::view('ContactUs', 'contact');
 Route::view('AboutUs', 'about');
 Route::view('register', 'form');
-Route::view('sassexample','sample');
+Route::view('sassexample', 'sample');
 
 Route::post('fetch_value', [SampleController::class, 'fetch_data']);
+
+Route::view('RegisterForm', 'register_form');
+
+Route::post('FetchRegister', [SampleController::class, 'register_fetch_data']);
+Route::get('FetchRandomdata', [SampleController::class, 'fetch_random_data']);
