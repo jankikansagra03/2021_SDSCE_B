@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Registration;
 
 class SampleController extends Controller
 {
@@ -25,7 +26,7 @@ class SampleController extends Controller
             'hobby' => 'required',
             'qualification' => 'required',
             'address' => 'required',
-            'pic' => 'required|max:100|mimes:jpg,png,gif,bmp'
+            'pic' => 'required|max:300|mimes:jpg,png,gif,bmp'
 
         ], [
             'fn.required' => 'Full name cannot be empty',
@@ -50,10 +51,30 @@ class SampleController extends Controller
             'gender.required' => 'Please select your Gender',
             'age.required' => 'Please enter your age'
         ]);
-        $original_name = uniqid() . $req->file('pic')->getClientOriginalName();
-        $req->pic->move('images/profile_pictures', $original_name);
-        $hobbies = $req->input('hobby');
-        return view('display_register', compact('req', 'hobbies'));
+        $h = "";
+        foreach ($req->hobby as $h1) {
+            $h = $h . $h1 . ",";
+        }
+        // $h=implode(',',$req->hobby);
+        $pic_name = uniqid() . $req->file('pic')->getClientOriginalName();
+        $req->pic->move('Images/profile_pictures/', $pic_name);
+        $reg = new Registration();
+        $reg->fullname = $req->fn;
+        $reg->email = $req->em;
+        $reg->password = $req->pwd;
+        $reg->mobile = $req->mobile;
+        $reg->gender = $req->gender;
+        $reg->qualification = $req->qualification;
+        $reg->age = $req->age;
+        $reg->hobbies = $h;
+        $reg->address = $req->address;
+        $reg->pic = $pic_name;
+        if ($reg->save()) {
+            session()->flash('success', 'Registration Success');
+        } else {
+            session()->flash('error', 'Registration Failed');
+        }
+        return view('register_form');
     }
     public function fetch_random_data()
     {
@@ -63,5 +84,27 @@ class SampleController extends Controller
 
         $a = array('a1' => '20', 'a2' => '30', 'a3' => '40');
         return view('display_random_data', compact('a'));
+    }
+
+    public function fetch_data_registration()
+    {
+        $r = Registration::select()->get();
+        return view('display_registration_data', compact('r'));
+    }
+    public function fetch_data_for_edit($email)
+    {
+        return $email;
+    }
+    public function delete_user_registration($email)
+    {
+        return $email;
+    }
+    public function deactivate_user_registration($email)
+    {
+        return $email;
+    }
+    public function activate_user_registration($email)
+    {
+        return $email;
     }
 }

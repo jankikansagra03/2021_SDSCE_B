@@ -33,3 +33,8 @@ Route::view('RegisterForm', 'register_form');
 
 Route::post('FetchRegister', [SampleController::class, 'register_fetch_data']);
 Route::get('FetchRandomdata', [SampleController::class, 'fetch_random_data']);
+Route::get('display_data', [SampleController::class, 'fetch_data_registration']);
+Route::get('edit_user/{email}', [SampleController::class, 'fetch_data_for_edit']);
+Route::get('delete_user/{email}', [SampleController::class, 'delete_user_registration']);
+Route::get('Deactivate/{email}', [SampleController::class, 'deactivate_user_registration']);
+Route::get('Activate/{email}', [SampleController::class, 'activate_user_registration']);
