@@ -99,12 +99,15 @@ class SampleController extends Controller
     }
     public function delete_user_registration($email)
     {
-        return $email;
+        $data=Registration::where('email',$email)->update(array('status'=>'Deleted'));
+        if($data)
+        {
+            return $this->fetch_data_registration();
+        }
     }
     public function deactivate_user_registration($email)
     {
-        return $email;
-    }
+        $data= Registration::where('email', $email)->update(array('status' => 'inacive'));  }
     public function activate_user_registration($email)
     {
         return $email;
