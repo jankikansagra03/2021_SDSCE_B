@@ -99,15 +99,15 @@ class SampleController extends Controller
     }
     public function delete_user_registration($email)
     {
-        $data=Registration::where('email',$email)->update(array('status'=>'Deleted'));
-        if($data)
-        {
+        $data = Registration::where('email', $email)->update(array('status' => 'Deleted'));
+        if ($data) {
             return $this->fetch_data_registration();
         }
     }
     public function deactivate_user_registration($email)
     {
-        $data= Registration::where('email', $email)->update(array('status' => 'inacive'));  }
+        $data = Registration::where('email', $email)->update(array('status' => 'inacive'));
+    }
     public function activate_user_registration($email)
     {
         return $email;
@@ -163,5 +163,16 @@ class SampleController extends Controller
             $data->where('email', $req->em)->update(array('fullname' => $req->fn, 'password' => $req->pwd, 'mobile' => $req->mobile, 'age' => $req->age, 'gender' => $req->gender, 'hobbies' => $h, 'qualification' => $req->qualification, 'address' => $req->address));
         }
         return redirect('display_data');
+    }
+
+    public function validate_login(Request $req)
+    {
+        $email = $req->uname;
+        $password = $req->pwd;
+        if ($email == "abc@gmail.com" && $password == "12345") {
+            $req->session()->put('uname', $email);
+            $req->session()->put('pwd', $password);
+            return view("after_login");
+        }
     }
 }

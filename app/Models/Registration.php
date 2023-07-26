@@ -9,5 +9,5 @@ class Registration extends Model
 {
     use HasFactory;
     public $table="registration";
-    public $timestamp=false;
+    
 }

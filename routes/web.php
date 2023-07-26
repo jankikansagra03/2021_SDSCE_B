@@ -39,3 +39,5 @@ Route::get('delete_user/{email}', [SampleController::class, 'delete_user_registr
 Route::get('Deactivate/{email}', [SampleController::class, 'deactivate_user_registration']);
 Route::get('Activate/{email}', [SampleController::class, 'activate_user_registration']);
 Route::post('Update_registration', [SampleController::class, 'update_data_registration']);
+Route::view('Login_session', 'form_session');
+Route::post('sesson_store', [SampleController::class, 'validate_login']);
