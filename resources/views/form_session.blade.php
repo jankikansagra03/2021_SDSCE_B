@@ -1,4 +1,4 @@
-<form action="session_store" method="post">
+<form action="{{ URL::to('/') }}/session_store" method="post">
     @csrf
     Username:: <input type="text" name="uname" />
     <br>

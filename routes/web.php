@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SampleController;
+use App\Http\Middleware\SessionLogin;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,8 +20,7 @@ Route::get('/', function () {
 });
 
 
-Route::view('firstpage', 'First');
-Route::view('Myheader', 'header');
+
 Route::view('Index', 'home');
 Route::view('ContactUs', 'contact');
 Route::view('AboutUs', 'about');
@@ -39,5 +39,19 @@ Route::get('delete_user/{email}', [SampleController::class, 'delete_user_registr
 Route::get('Deactivate/{email}', [SampleController::class, 'deactivate_user_registration']);
 Route::get('Activate/{email}', [SampleController::class, 'activate_user_registration']);
 Route::post('Update_registration', [SampleController::class, 'update_data_registration']);
-Route::view('Login_session', 'form_session');
-Route::post('sesson_store', [SampleController::class, 'validate_login']);
+Route::view('Login_session', 'form_session')->name('login');
+Route::post('session_store', [SampleController::class, 'validate_login']);
+Route::post('session_store', [SampleController::class, 'validate_login']);
+Route::get('logout', [SampleController::class, 'logout']);
+
+Route::middleware('session_check')->group(function () {
+    Route::view('after_login', 'after_login');
+});
+
+Route::middleware('sm1')->group(function () {
+    Route::view('firstpage', 'First');
+    Route::view('Myheader', 'header');
+});
+
+Route::view('email_send_form', 'mail_send_form');
+Route::post('send_email', [SampleController::class, 'send_email']);

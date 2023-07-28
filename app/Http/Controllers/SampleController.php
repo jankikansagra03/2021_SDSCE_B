@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Mail;
+
 
 class SampleController extends Controller
 {
@@ -167,12 +169,33 @@ class SampleController extends Controller
 
     public function validate_login(Request $req)
     {
+        //if(session()->has('uname'))
         $email = $req->uname;
         $password = $req->pwd;
+        $req->session()->forget('uname');
+        // $req->session()->get('uname');
+
         if ($email == "abc@gmail.com" && $password == "12345") {
             $req->session()->put('uname', $email);
             $req->session()->put('pwd', $password);
-            return view("after_login");
         }
+        return redirect("after_login");
+    }
+    public function logout()
+    {
+        if (session('uname')) {
+            session()->forget('uname');
+            return redirect('Login_session');
+        }
+    }
+
+    public function send_email(Request $req)
+    {
+        $data = [];
+        Mail::send('view_anme', $data, function ($message) {
+            $message->to('janki.kansagra@rku.ac.in', 'Janki KAnsagra');
+            $message->from('janki.kansagra@rku.ac.in', 'Janki KAnsagra');
+            $message->attach('Images/profile_picyures/default.png');
+        });
     }
 }
