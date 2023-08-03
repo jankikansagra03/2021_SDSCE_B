@@ -55,3 +55,4 @@ Route::middleware('sm1')->group(function () {
 
 Route::view('email_send_form', 'mail_send_form');
 Route::post('send_email', [SampleController::class, 'send_email']);
+Route::view('login_master', 'login_master');

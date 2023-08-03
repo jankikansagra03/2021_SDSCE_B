@@ -12,6 +12,8 @@
     <form action="{{ URL::to('/') }}/send_email" method="post">
 
         @csrf
+        Enter Name:: <input type="text" name="nm" id="nm1">
+        <br>
         Enter Email :: <input type="email" name="em" id="em1">
         <br>
         <input type="submit" value="Send Email">

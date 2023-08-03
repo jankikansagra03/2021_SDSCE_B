@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use Exception;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 
@@ -191,11 +192,14 @@ class SampleController extends Controller
 
     public function send_email(Request $req)
     {
-        $data = [];
-        Mail::send('view_anme', $data, function ($message) {
-            $message->to('janki.kansagra@rku.ac.in', 'Janki KAnsagra');
-            $message->from('janki.kansagra@rku.ac.in', 'Janki KAnsagra');
-            $message->attach('Images/profile_picyures/default.png');
-        });
+        $data = ['name' => $req->nm, 'email' => $req->em];
+        try {
+            Mail::send('create_account_mail', ['data' => $data], function ($message) use ($data) {
+                $message->to($data['email'], $data['name']);
+                $message->attach('images/profile_pictures/64af6d43d8987Icostart-22 certificate.pdf.jpg');
+            });
+        } catch (Exception $e) {
+            return "error";
+        }
     }
 }
